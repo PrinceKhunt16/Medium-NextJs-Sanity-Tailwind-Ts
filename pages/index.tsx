@@ -1,8 +1,23 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
+import { sanityClient, urlFor } from "../sanity";
+import { Post } from "../typings";
+import Link from "next/link" 
 
-const Home: NextPage = () => {
+interface Props {
+  posts: [Post];
+}
+
+export default function Home({ posts }: Props) {
+  const makeSortString = (des: string) => {
+    if (des.length > 30) {
+      des = des.substring(0, 60);
+      return des;
+    }
+    return des;
+  }
+
   return (
     <div className="max-w-7xl mx-auto">
       <Head>
@@ -28,8 +43,56 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 p-2 md:p-6">
+        {posts.map((post) => (
+          <Link key={post._id} href={`/post/${post.slug.current}`}>
+            <div className="group border rounded cursor-pointer overflow-hidden">
+              <img 
+                className="h-60 w-full object-cover rounded-sm group-hover:scale-105 transition-transform duration-200 ease-in-out"
+                src={urlFor(post.mainImage).url()!} 
+                alt="" 
+              />
+              <div className="flex justify-between p-4 space-x-2 bg-white">
+                <div className="space-y-1">
+                  <p className="font-notosans text-lg">{post.title}</p>
+                  <p className="font-notosans">
+                    {makeSortString(post.description)} by {post.author.name}
+                  </p>
+                </div>
+                <img
+                  className="h-12 w-12 object-cover rounded-full"
+                  src={urlFor(post.author.image).url()!}
+                  alt=""
+                />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
 
-export default Home
+export const getServerSideProps = async () => {
+  const query = `
+    *[_type == "post"]{
+      _id,
+      title,
+      author -> {
+        name, 
+        image
+      },
+      description,
+      mainImage,
+      slug
+    }
+  `;
+
+  const posts = await sanityClient.fetch(query);
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
