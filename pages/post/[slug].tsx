@@ -22,13 +22,13 @@ function Post({ post }: Props) {
       <article className="max-w-3xl mx-auto px-2">
         <div className="flex items-center space-x-3 mt-8 mb-3">
           <img
-            className="h-12 w-12 object-cover rounded-full"
+            className="h-14 w-14 object-cover rounded-full"
             src={urlFor(post.author.image).url()!}
             alt="user"
           />
           <p className="font-notosans font-normal text-base">
-            Blog post by{" "}
-            <span className="text-green-700"> {post.author.name} </span> -
+            Post by{" "}
+            <span className="text-green-700"> {post.author.name} </span> - 
             published at {new Date(post.publishedAt).toLocaleString()}
           </p>
         </div>
@@ -65,7 +65,25 @@ function Post({ post }: Props) {
             }}
           />
         </div>
+        <hr className="max-w-3xl my-5 mx-auto border-green-700"/>
       </article>
+      <div className="max-w-3xl mx-auto px-2 my-5">
+        <form className="flex flex-col my-10">
+          <h3 className="font-notosans text-3xl font-light mb-5">Leave a Comment below!</h3>
+          <label className="block my-4">
+            <h3 className="font-notosans text-lg font-normal">Name</h3>
+            <input className="text-gray-800 mt-2 border p-2 rounded font-notosans font-normal w-full focus:outline-none" type="text" placeholder="Name" name="" id="" />
+          </label>
+          <label className="block my-4">
+            <h3 className="font-notosans text-lg font-normal">Email</h3>
+            <input className="text-gray-800 mt-2 border p-2 rounded font-notosans font-normal w-full focus:outline-none" type="text" placeholder="Email" name="" id="" />
+          </label>
+          <label className="block my-4">
+            <h3 className="font-notosans text-lg font-normal">Comment</h3>
+            <textarea className="text-gray-800 mt-2 border p-2 rounded font-notosans font-normal w-full focus:outline-none" placeholder="Comment" rows={8} name="" id="" />
+          </label>
+        </form>
+      </div>
     </main>
   );
 }
