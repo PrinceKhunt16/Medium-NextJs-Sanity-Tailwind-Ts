@@ -12,6 +12,7 @@ export interface Post {
             url: string;
         };
     };
+    publishedAt: string;
     slug: {
         current: string;
     };
