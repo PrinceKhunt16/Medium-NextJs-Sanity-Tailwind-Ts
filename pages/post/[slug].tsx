@@ -100,8 +100,8 @@ function Post({ post }: Props) {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col"
           >
-            <h3 className="font-notosans text-3xl font-light mb-5">
-              Leave a Comment below!
+            <h3 className="font-notosans text-3xl font-light mb-4">
+              Write your Comment below!
             </h3>
             <input
               {...register("_id")}
@@ -109,7 +109,7 @@ function Post({ post }: Props) {
               name="_id"
               value={post._id}
             />
-            <label className="block my-4">
+            <label className="block mb-4">
               <h3 className="font-notosans text-lg font-normal">Name</h3>
               <input
                 {...register("name", { required: true })}
@@ -168,7 +168,7 @@ function Post({ post }: Props) {
         )}
          <hr className="my-8"/>
         <div className="mb-4">
-          <h1 className="font-notosans text-3xl font-light mb-5">
+          <h1 className="font-notosans text-3xl font-light mb-6">
             Comments
           </h1>
           {
