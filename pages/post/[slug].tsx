@@ -58,7 +58,7 @@ function Post({ post }: Props) {
             src={urlFor(post.author.image).url()!}
             alt="user"
           />
-          <p className="font-notosans font-normal text-base">
+          <p className="font-notosans font-normal text-lg">
             Post by <span> {post.author.name} </span> - published at{" "}
             {new Date(post.publishedAt).toLocaleString()}
           </p>
@@ -66,7 +66,7 @@ function Post({ post }: Props) {
         <h1 className="font-notosans text-4xl font-light mt-7">{post.title}</h1>
         <div className="portableDataSection">
           <PortableText
-            className="mt-7 font-notosans font-normal space-y-2 text-justify"
+            className="mt-7 font-notosans font-normal text-lg space-y-2 text-justify"
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
             content={post.body}
@@ -74,12 +74,6 @@ function Post({ post }: Props) {
               h1: (props: any) => (
                 <h1
                   className="font-notosans text-3xl font-light my-2"
-                  {...props}
-                />
-              ),
-              h2: (props: any) => (
-                <h2
-                  className="font-notosans text-xl font-light my-5"
                   {...props}
                 />
               ),
